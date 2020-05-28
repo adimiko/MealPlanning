@@ -11,7 +11,13 @@ namespace Infrastructure.Repositories
     {
         private static ISet<Recipe> _recipes = new HashSet<Recipe>()
         {
-
+            new Recipe(Guid.Parse("4593b72b-f4d4-44d8-9838-0ba449d35523"),"Omlet",
+            new HashSet<Ingredient>()
+            {
+                new Ingredient(Guid.NewGuid(),"Jajka",new NutritionInfo(1,1,1),"g"),
+                new Ingredient(Guid.NewGuid(),"Jogurt",new NutritionInfo(10,1,1),"g")
+            }
+            )
         };
         public async Task<Recipe> GetAsync(Guid id)
         => await Task.FromResult(_recipes.Where(x => x.Id == id).SingleOrDefault());
