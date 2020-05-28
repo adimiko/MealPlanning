@@ -4,19 +4,23 @@ using Core.Domain;
 using Core.Repositories;
 using Infrastructure.Services.Interfaces;
 using Infrastructure.Extensions;
+using Infrastructure.DTO;
+using AutoMapper;
 
 namespace Infrastructure.Services.Implementations
 {
     public class IngredientService : IIngredientService
     {
         private readonly IIngredientRepository _ingredientRepository;
+        private readonly IMapper _mapper;
 
-        public IngredientService(IIngredientRepository ingredientRepository)
+        public IngredientService(IIngredientRepository ingredientRepository, IMapper mapper)
         {
             _ingredientRepository = ingredientRepository;
+            _mapper = mapper;
         }
-        public async Task<Ingredient> GetAsync(Guid id)
-        => await _ingredientRepository.GetOrFailAsync(id);
+        public async Task<IngredientDto> GetAsync(Guid id)
+        => _mapper.Map<IngredientDto>(await _ingredientRepository.GetOrFailAsync(id));
         public async Task CreateAsync(Guid id, string name, NutritionInfo nutritionInfo, string unit)
         {
             var ingredient = await _ingredientRepository.GetOrFailAsync(id);

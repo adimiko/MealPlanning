@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Core.Domain;
 using Core.Repositories;
+using Infrastructure.DTO;
 using Infrastructure.Extensions;
 using Infrastructure.Services.Interfaces;
 
@@ -11,13 +13,15 @@ namespace Infrastructure.Services.Implementations
     public class RecipeService : IRecipeService
     {
         private readonly IRecipeRepository _recipeRepository;
+        private readonly IMapper _mapper;
         
-        public RecipeService(IRecipeRepository recipeRepository)
+        public RecipeService(IRecipeRepository recipeRepository,IMapper mapper)
         {
             _recipeRepository = recipeRepository;
+            _mapper = mapper;
         }
-        public async Task<Recipe> GetAsync(Guid id)
-        => await _recipeRepository.GetOrFailAsync(id);
+        public async Task<RecipeDto> GetAsync(Guid id)
+        => _mapper.Map<RecipeDto>(await _recipeRepository.GetOrFailAsync(id));
 
         public async Task CreateAsync(Guid id, string name, ISet<Ingredient> ingredients)
         {
