@@ -12,12 +12,12 @@ namespace Core.Domain
         public IEnumerable Ingredients => _ingredients;
         
         protected Recipe(){}
-        public Recipe(Guid id,string name,NutritionInfo nutritionInfo,ISet<Ingredient> ingredients)
+        public Recipe(Guid id,string name,ISet<Ingredient> ingredients)
         {
             SetId(id);
             SetName(name);
-            SetNutritionInfo(nutritionInfo);
             SetIngredients(ingredients);
+            UpdateNutritionInfo();
         }
 
         private void SetId(Guid id)
@@ -26,13 +26,8 @@ namespace Core.Domain
         public void SetName(string name)
         => _= !string.IsNullOrWhiteSpace(name)? Name = name : throw new Exception("Name must not be null or white space.");
 
-        public void SetNutritionInfo(NutritionInfo nutritionInfo)
+        public void UpdateNutritionInfo()
         {
-            if(nutritionInfo == null)
-            {
-                throw new Exception("NutritionInfo must not be null.");
-            }
-
             float fat = 0f;
             float carbohydrate = 0f;
             float protein = 0f;
@@ -48,6 +43,9 @@ namespace Core.Domain
         } 
 
         public void SetIngredients(ISet<Ingredient> ingredients)
-        => _= ingredients != null ? _ingredients = ingredients : throw new Exception("Ingredients must not be null");
+        {
+            _= ingredients != null ? _ingredients = ingredients : throw new Exception("Ingredients must not be null");
+            UpdateNutritionInfo();
+        }
     }
 }
