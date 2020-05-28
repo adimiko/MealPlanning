@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Core.Repositories;
+using Infrastructure.Mappers;
 using Infrastructure.Repositories;
 using Infrastructure.Services.Implementations;
 using Infrastructure.Services.Interfaces;
@@ -36,6 +38,8 @@ namespace Api
 
             services.AddScoped<IRecipeService,RecipeService>();
             services.AddScoped<IIngredientService,IngredientService>();
+
+            services.AddSingleton<IMapper>(AutoMapperConfig.Initialize());
             
         }
 
