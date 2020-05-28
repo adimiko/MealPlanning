@@ -9,7 +9,7 @@ namespace Core.Domain
         private ISet<Ingredient> _ingredients = new HashSet<Ingredient>();
         public string Name {get; protected set;}
         public NutritionInfo NutritionInfo {get; protected set;}
-        public IEnumerable Ingredients => _ingredients;
+        public IEnumerable<Ingredient> Ingredients => _ingredients;
         
         protected Recipe(){}
         public Recipe(Guid id,string name,ISet<Ingredient> ingredients)
