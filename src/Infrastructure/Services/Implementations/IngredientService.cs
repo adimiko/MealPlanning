@@ -6,6 +6,7 @@ using Infrastructure.Extensions;
 using Infrastructure.DTO;
 using AutoMapper;
 using Core.Domain.Models;
+using System.Collections.Generic;
 
 namespace Infrastructure.Services.Implementations
 {
@@ -21,6 +22,9 @@ namespace Infrastructure.Services.Implementations
         }
         public async Task<IngredientDto> GetAsync(Guid id)
         => _mapper.Map<IngredientDto>(await _ingredientRepository.GetOrFailAsync(id));
+
+        public async Task<IEnumerable<IngredientDto>> BrowseAsync()
+        => _mapper.Map<IEnumerable<IngredientDto>>(await _ingredientRepository.BrowseAsync());
         public async Task CreateAsync(Guid id, string name, NutritionInfo nutritionInfo, string unit)
         {
             var ingredient = await _ingredientRepository.GetOrFailAsync(id);

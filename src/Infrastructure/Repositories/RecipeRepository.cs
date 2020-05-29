@@ -21,7 +21,8 @@ namespace Infrastructure.Repositories
         };
         public async Task<Recipe> GetAsync(Guid id)
         => await Task.FromResult(_recipes.Where(x => x.Id == id).SingleOrDefault());
-
+        public async Task<IEnumerable<Recipe>> BrowseAsync()
+        => await Task.FromResult(_recipes.AsEnumerable());
         public async Task UpdateAsync(Recipe recipe)
         {
             await Task.CompletedTask;

@@ -23,6 +23,9 @@ namespace Infrastructure.Services.Implementations
         public async Task<RecipeDto> GetAsync(Guid id)
         => _mapper.Map<RecipeDto>(await _recipeRepository.GetOrFailAsync(id));
 
+        public async Task<IEnumerable<RecipeDto>> BrowseAsync()
+        => _mapper.Map<IEnumerable<RecipeDto>>(await _recipeRepository.BrowseAsync());
+
         public async Task CreateAsync(Guid id, string name, ISet<Ingredient> ingredients)
         {
             var recipe = await _recipeRepository.GetOrFailAsync(id);
