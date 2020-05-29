@@ -1,7 +1,7 @@
 using System;
 using Core.Extensions;
 
-namespace Core.Domain
+namespace Core.Domain.Models
 {
     public class NutritionInfo
     {

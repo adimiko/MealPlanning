@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Extensions;
 
-namespace Core.Domain
+namespace Core.Domain.Models
 {
     public class Ingredient : Entity
     {

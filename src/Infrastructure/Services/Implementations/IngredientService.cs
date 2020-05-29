@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using Core.Domain;
 using Core.Repositories;
 using Infrastructure.Services.Interfaces;
 using Infrastructure.Extensions;
 using Infrastructure.DTO;
 using AutoMapper;
+using Core.Domain.Models;
 
 namespace Infrastructure.Services.Implementations
 {
