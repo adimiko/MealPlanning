@@ -27,7 +27,7 @@ namespace Infrastructure.Services.Implementations
         => _mapper.Map<IEnumerable<IngredientDto>>(await _ingredientRepository.BrowseAsync());
         public async Task CreateAsync(Guid id, string name, NutritionInfo nutritionInfo, string unit)
         {
-            var ingredient = await _ingredientRepository.GetOrFailAsync(id);
+            var ingredient = await _ingredientRepository.GetAsync(id);
 
             if(ingredient != null)
             {

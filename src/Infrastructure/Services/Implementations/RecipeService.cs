@@ -28,7 +28,8 @@ namespace Infrastructure.Services.Implementations
 
         public async Task CreateAsync(Guid id, string name, ISet<Ingredient> ingredients)
         {
-            var recipe = await _recipeRepository.GetOrFailAsync(id);
+            //TODO znajdować po ID ingredients i dodawać do tablicy
+            var recipe = await _recipeRepository.GetAsync(id);
 
             if(recipe != null)
             {
@@ -41,7 +42,7 @@ namespace Infrastructure.Services.Implementations
         }
         public async Task UpdateAsync(Guid id, string name, ISet<Ingredient> ingredients)
         {
-            var recipe = await _recipeRepository.GetOrFailAsync(id);
+            var recipe = await _recipeRepository.GetAsync(id);
 
             if(recipe == null)
             {
