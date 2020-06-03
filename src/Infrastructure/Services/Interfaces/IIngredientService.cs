@@ -10,8 +10,8 @@ namespace Infrastructure.Services.Interfaces
     {
         Task<IngredientDto> GetAsync(Guid id);
         Task<IEnumerable<IngredientDto>> BrowseAsync();
-        Task CreateAsync(Guid id, string name, NutritionInfo nutritionInfo, string unit);
-        Task UpdateAsync(Guid id, string name, NutritionInfo nutritionInfo, string unit);
+        Task CreateAsync(Guid id, int value,IngredientInfo ingredientInfo);
+        Task UpdateAsync(Guid id, int value,IngredientInfo ingredientInfo);
         Task DeleteAsync(Guid id);
     }
 }

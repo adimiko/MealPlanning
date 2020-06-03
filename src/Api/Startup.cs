@@ -39,6 +39,9 @@ namespace Api
             services.AddScoped<IRecipeService,RecipeService>();
             services.AddScoped<IIngredientService,IngredientService>();
 
+            services.AddScoped<IIngredientInfoRepository,IngredientInfoRepository>();
+            services.AddScoped<IIngredientInfoService,IngredientInfoService>();
+
             services.AddSingleton<IMapper>(AutoMapperConfig.Initialize());
             
         }

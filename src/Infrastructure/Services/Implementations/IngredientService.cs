@@ -25,7 +25,7 @@ namespace Infrastructure.Services.Implementations
 
         public async Task<IEnumerable<IngredientDto>> BrowseAsync()
         => _mapper.Map<IEnumerable<IngredientDto>>(await _ingredientRepository.BrowseAsync());
-        public async Task CreateAsync(Guid id, string name, NutritionInfo nutritionInfo, string unit)
+        public async Task CreateAsync(Guid id, int value,IngredientInfo ingredientInfo)
         {
             var ingredient = await _ingredientRepository.GetAsync(id);
 
@@ -33,12 +33,12 @@ namespace Infrastructure.Services.Implementations
             {
                 throw new Exception($"Ingredient with id '{id}' already exists.");
             }
-
-            ingredient = new Ingredient(id,name,nutritionInfo,unit);
+            
+            ingredient = new Ingredient(id,value,ingredientInfo);
 
             await _ingredientRepository.AddAsync(ingredient);
         }
-        public async Task UpdateAsync(Guid id, string name, NutritionInfo nutritionInfo, string unit)
+        public async Task UpdateAsync(Guid id, int value,IngredientInfo ingredientInfo)
         {
             var ingredient = await _ingredientRepository.GetOrFailAsync(id);
 
@@ -46,10 +46,9 @@ namespace Infrastructure.Services.Implementations
             {
                 throw new Exception($"Ingredient with id '{id}' does not exist.");
             }
-
-            ingredient.SetName(name);
-            ingredient.SetNutritionInfo(nutritionInfo);
-            ingredient.SetUnit(unit);
+            
+            ingredient.SetValue(value);
+            ingredient.SetIngredientInfo(ingredientInfo);
 
             await _ingredientRepository.UpdateAsync(ingredient);
         }

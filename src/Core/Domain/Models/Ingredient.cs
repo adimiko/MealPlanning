@@ -1,47 +1,42 @@
 using System;
-using System.Collections.Generic;
 using Core.Extensions;
 
 namespace Core.Domain.Models
 {
     public class Ingredient : Entity
     {
-        private static List<string> _units = new List<string>
-        {
-            "g", "ml"
-        };
-        public string Name {get; protected set;}
-        public string Unit {get; protected set;}
+        public int Value {get; protected set;}
+        public IngredientInfo IngredientInfo {get; protected set;}
         public NutritionInfo NutritionInfo {get; protected set;}
-        protected Ingredient(){}
-        public Ingredient(Guid id, string name, NutritionInfo nutritionInfo, string unit)
+
+        protected Ingredient() {}
+
+        public Ingredient(Guid id, int value,IngredientInfo ingredientInfo)
         {
             SetId(id);
-            SetName(name);
-            SetNutritionInfo(nutritionInfo);
-            SetUnit(unit);
+            SetValue(value);
+            SetIngredientInfo(ingredientInfo);
         }
+
+        public void SetIngredientInfo(IngredientInfo ingredientInfo)
+        {
+            _= ingredientInfo != null ? IngredientInfo = ingredientInfo : throw new Exception("IngredientInfo must not be null.");
+            UpdateNutritionInfo();
+        }
+
+        public void SetValue(int value)
+        => _= value.IsGreaterThanZero() ? Value = value : throw new Exception("Value have to be greater than zero.");
+
         private void SetId(Guid id)
         => _= id.IsNotEmpty() ? Id = id : throw new Exception("Id must not be empty.");
 
-        public void SetName(string name)
-        => _= !string.IsNullOrWhiteSpace(name) ? Name = name : throw new Exception("Name must not be null or white space.");
-
-
-         public void SetNutritionInfo(NutritionInfo nutritionInfo)
-        => _= nutritionInfo != null ? NutritionInfo = nutritionInfo : throw new Exception("NutritionInfo must not be null.");
-        public void SetUnit(string unit)
+        public void UpdateNutritionInfo()
         {
-            foreach(var _unit in _units)
-            {
-                if(_unit == unit.ToLowerInvariant())
-                {
-                    Unit = unit.ToLowerInvariant();
-                    return;
-                }
-            }
+            float fat = (float)(Value/100f) * IngredientInfo.NutritionInfoPerHundredGrams.Fat;
+            float carbohydrate = (float)(Value/100f) * IngredientInfo.NutritionInfoPerHundredGrams.Carbohydrate;
+            float protein = (float)(Value/100f) * IngredientInfo.NutritionInfoPerHundredGrams.Protein;
 
-            throw new Exception("The given unit is bad.");
-        }
+            NutritionInfo = new NutritionInfo(fat,carbohydrate,protein);
+        } 
     }
 }

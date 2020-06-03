@@ -14,8 +14,13 @@ namespace Infrastructure.Mappers
             cfg.CreateMap<Ingredient,IngredientDto>();
             cfg.CreateMap<NutritionInfo,NutritionInfoDto>();
 
+            cfg.CreateMap<IngredientInfo,IngredientInfoDto>();
+            cfg.CreateMap<IngredientInfo,IngredientInfoDetailsDto>();
+
             cfg.CreateMap<CreateAndUpdateNutritionInfo,NutritionInfo>()
             .ConstructUsing(x => new NutritionInfo(x.Fat,x.Carbohydrate,x.Protein));
+
+            
 
          }).CreateMapper();
     }

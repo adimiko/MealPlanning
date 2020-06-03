@@ -22,5 +22,13 @@ namespace Infrastructure.Extensions
 
             throw new Exception($"Ingredient with id '{id}' does not exist.");
         }
+
+        public static async Task<IngredientInfo> GetOrFailAsync(this IIngredientInfoRepository repository,Guid id)
+        {
+            var ingredientInfo = await repository.GetAsync(id);
+            if(ingredientInfo != null) return ingredientInfo;
+
+            throw new Exception($"IngredientInfo with id '{id}' does not exist.");
+        }
     }
 }

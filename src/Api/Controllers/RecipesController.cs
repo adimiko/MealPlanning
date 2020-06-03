@@ -32,7 +32,6 @@ namespace Api.Controllers
         public async Task<IActionResult> Browse()
         => Json(await _recipeService.BrowseAsync());
         
-        
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateRecipe command)
         {
@@ -42,7 +41,8 @@ namespace Api.Controllers
 
             foreach(var c in command.Ingredients)
             {
-                Ingredients.Add(new Ingredient(c.Id,c.Name,_mapper.Map<NutritionInfo>(c.NutritionInfo),c.Unit));
+                //TODO odkomentować
+                //Ingredients.Add(new Ingredient(c.Id,c.Name,_mapper.Map<NutritionInfo>(c.NutritionInfo),c.Unit));
             }
 
             await _recipeService.CreateAsync
@@ -61,7 +61,8 @@ namespace Api.Controllers
 
             foreach(var c in command.Ingredients)
             {
-                Ingredients.Add(new Ingredient(c.Id,c.Name,c.NutritionInfo,c.Unit));
+                //TODO odkomentować
+                //Ingredients.Add(new Ingredient(c.Id,c.Name,c.NutritionInfo,c.Unit));
             }
 
             await _recipeService.UpdateAsync(id,command.Name,Ingredients);
